@@ -8,7 +8,7 @@ class Zend_Service_PayPal_Response
      *
      * @param string $data
      */
-    public function __construct ($response) {}
+    public function __construct($response) {}
     
     /**
      * Check whether the request was successfull
@@ -16,13 +16,6 @@ class Zend_Service_PayPal_Response
      * @return boolean
      */
     public function isSuccess() {}
-    
-    /**
-     * Check whether the request failed
-     *
-     * @return boolean
-     */
-    public function isFailure() {}
     
     /**
      * Check whether the request produced warnings
@@ -39,7 +32,14 @@ class Zend_Service_PayPal_Response
      * @param  string $name
      * @return string|null Value or null if not set
      */
-    public function getValue($name) {}
+    public function getValue($name)
+    {
+        if (isset($this->_data[$key])) {
+            return $this->_data[$key];
+        }
+
+        return null;
+    }
     
     /**
      * Magic wrapper around getValue()
@@ -50,5 +50,12 @@ class Zend_Service_PayPal_Response
      * @param  string $name Key
      * @return string
      */
-    public function __get($name) {}
+    public function __get($name)
+    {
+        if (! isset($this->_data[$name])) {
+            throw new Zend_Service_PayPal_Exception("Property '$name' does not exist!");
+        }
+        
+        return $this->_data[$name];
+    }
 } 

@@ -15,7 +15,6 @@ class Zend_Service_PayPal_Data_CreditCard
     const TYPE_DISCOVERY  = 'Discover';
     const TYPE_AMERICANEXPRESS = 'American Express';
 
-
     /**
      * TODO: description.
      * 
@@ -66,13 +65,17 @@ class Zend_Service_PayPal_Data_CreditCard
      */
     public function __construct( array $params = array() ) 
     {
-
+        foreach ($params as $prop => $value) {
+            $this->{$prop} = $value;
+        }
     }
 
     /**
      * TODO: short description.
      * 
-     * @return TODO
+     * @param string $type 
+     * 
+     * @return void
      */
     public function setCardType( $type ) 
     {
@@ -82,7 +85,7 @@ class Zend_Service_PayPal_Data_CreditCard
     /**
      * TODO: short description.
      * 
-     * @return TODO
+     * @return string
      */
     public function getCardType()
     {
@@ -92,7 +95,9 @@ class Zend_Service_PayPal_Data_CreditCard
     /**
      * TODO: short description.
      * 
-     * @return TODO
+     * @param string $number 
+     * 
+     * @return void
      */
     public function setAcctNumber( $number )
     {
@@ -102,7 +107,7 @@ class Zend_Service_PayPal_Data_CreditCard
     /**
      * TODO: short description.
      * 
-     * @return TODO
+     * @return string
      */
     public function getAcctNumber()
     {
@@ -114,13 +119,18 @@ class Zend_Service_PayPal_Data_CreditCard
      * 
      * @param double $date 
      * 
-     * @return TODO
+     * @return void
      */
     public function setExpiration( $date )
     {
         $this->expiration = $date;
     }
 
+    /**
+     * TODO: short description.
+     * 
+     * @return string
+     */
     public function getExpiration()
     {
         return $this->expiration;
@@ -131,7 +141,7 @@ class Zend_Service_PayPal_Data_CreditCard
      * 
      * @param mixed $cvv2 
      * 
-     * @return TODO
+     * @return void
      */
     public function setCvv2( $cvv2 )
     {
@@ -141,7 +151,7 @@ class Zend_Service_PayPal_Data_CreditCard
     /**
      * TODO: short description.
      * 
-     * @return TODO
+     * @return string
      */
     public function getCvv2()
     {
@@ -153,7 +163,7 @@ class Zend_Service_PayPal_Data_CreditCard
      * 
      * @param double $date 
      * 
-     * @return TODO
+     * @return void
      */
     public function setStartDate( $date )
     {
@@ -163,7 +173,7 @@ class Zend_Service_PayPal_Data_CreditCard
     /**
      * TODO: short description.
      * 
-     * @return TODO
+     * @return double
      */
     public function getStartdate()
     {
@@ -175,7 +185,7 @@ class Zend_Service_PayPal_Data_CreditCard
      * 
      * @param double $date 
      * 
-     * @return TODO
+     * @return void
      */
     public function setIssueNumber( $issueNumber )
     {
@@ -185,7 +195,7 @@ class Zend_Service_PayPal_Data_CreditCard
     /**
      * TODO: short description.
      * 
-     * @return TODO
+     * @return array
      */
     public function toNvp()
     {
@@ -197,5 +207,16 @@ class Zend_Service_PayPal_Data_CreditCard
         $data['STARTDATE']      = $this->startDate;
 
         return array_filter( $data );
+    }
+    
+    private function _validateAccountNumber($accountNumber)
+    {
+        require_once 'Zend/Validate/CreditCard.php';
+        $ccValidator = new Zend_Validate_CreditCard(array('type', $this->getCardType()));
+        if(!$ccValidator->isValid($acct)) {
+            $messages = $ccValidator->getMessages();
+            require_once 'Zend/Service/PayPal/Data/Exception.php';
+            throw new Zend_Service_PayPal_Data_Exception($messages[0]);
+        }
     }
 }
