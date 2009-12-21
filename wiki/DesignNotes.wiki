@@ -56,7 +56,7 @@ $data = array(
 );
 
 $service->DoDirectPayment( $data );
-}}
+}}}
 
 However, on the backed, Zend_Service_Paypal will simply break these data classes out into individual fields, and pass them to the API method.  Because of this, you are not forced to use the Data classes.  The following is also possible:
 
