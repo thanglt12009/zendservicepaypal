@@ -453,6 +453,7 @@ class Zend_Service_PayPal_Nvp
      * TODO: short description.
      * 
      * @param array $aParams 
+     * @deprecated 
      * 
      * @return Zend_Service_PayPal_Nvp_Response
      */
