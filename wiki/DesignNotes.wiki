@@ -78,6 +78,6 @@ $service->DoDirectPayment(array(
 
 == When to use ZSP_Api_ Methods ==
 
-The Zend_Service_PayPal_Api_* Methods are used to perform additional validating and filtering on a per method basis.  A class will be created for a method when there is additional validation or logic that must take place before the field data is sent to Paypal.  For example, in some API methods, certain optional fields become required under certain conditions.  The generic code for validating and sending data to the API is not aware of conditional requirements, but each individual API Method Class can be.
+The Zend_Service_PayPal_Api_ Methods are used to perform additional validating and filtering on a per method basis.  A class will be created for a method when there is additional validation or logic that must take place before the field data is sent to Paypal.  For example, in some API methods, certain optional fields become required under certain conditions.  The generic code for validating and sending data to the API is not aware of conditional requirements, but each individual API Method Class can be.
 
 As a further example, the Callback API Method does not require a shipping address, but some of the shipping address fields become required if any of them are present.
