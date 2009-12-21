@@ -62,15 +62,15 @@ However, on the backed, Zend_Service_Paypal will simply break these data classes
 
 {{{
 
-$service->DoDirectPayment( array(
+$service->DoDirectPayment(array(
    'PaymentAction' => 'Sale',
    'IPAddress'     => $_SERVER['REMOTE_ADDR'],
    'ReturnFMFDetails' => false,
    'Amt'           => 25.00,
    'CreditCardType' => 'MasterCard',
    'Acct'          => 1234123412341234,
-   /*... And So On ...*/
-) );
+   //... And So On ...
+));
 
 }}}
 
