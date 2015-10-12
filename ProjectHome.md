@@ -1,0 +1,1 @@
+Collaboration for the development of the Zend\_Service\_PayPal Component
